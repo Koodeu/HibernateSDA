@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @Getter
 @ToString
 @Table(name="formats")
-public class Format {
+public class Format extends BasicEntity {
 
     @Column(name = "code")
     private String code;

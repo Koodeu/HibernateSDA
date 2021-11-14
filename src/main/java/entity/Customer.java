@@ -14,7 +14,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Entity
 @Table(name = "customers")
-public class Customer {
+public class Customer extends BasicEntity {
 
     @Column(name = "first_name")
     private String firstName;
@@ -26,8 +26,11 @@ public class Customer {
     private String password;
     @Column(name = "birth_date")
     private LocalDate birthDate;
+
     @Column(name = "sex")
+    @Enumerated(EnumType.STRING)
     private Sex sex;
+
     @Column(name = "dialing_code")
     private String dialingCode;
     @Column(name = "phone_number")
@@ -35,7 +38,7 @@ public class Customer {
     @Column(name = "email")
     private String email;
     @Column(name = "create_date")
-    private LocalDate createDate
+    private LocalDate createDate;
 
     @ManyToOne
     @JoinColumn(name = "address_id")
@@ -43,7 +46,7 @@ public class Customer {
 
     @ManyToOne
     @JoinColumn(name = "customer_type_id")
-    private Customer customer;
+    private CustomerType customerType;
 
 }
 

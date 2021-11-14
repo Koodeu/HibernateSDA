@@ -3,6 +3,7 @@ package entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Setter
@@ -29,5 +30,7 @@ public class Book  extends BasicEntity{
     @JoinColumn (name = "publisher_id")
     private Publisher publisher;
 
+    @OneToMany(mappedBy = "book")
+    private List<AuthorBook> authorBookList;
 
 }

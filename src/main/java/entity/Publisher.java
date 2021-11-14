@@ -26,7 +26,7 @@ public class Publisher extends BasicEntity {
 
     @ManyToOne
     @JoinColumn(name = "address_id")
-    private Address address
+    private Address address;
 
 
 }

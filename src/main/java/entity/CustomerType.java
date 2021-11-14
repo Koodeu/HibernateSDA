@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Getter
 @ToString
 @Entity
-@Table(name = "customer_type")
+@Table(name = "customer_types")
 public class CustomerType extends BasicEntity{
 
     @Column(name ="code")

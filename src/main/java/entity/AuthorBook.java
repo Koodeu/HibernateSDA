@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "authors_books")
-public class AuthorsBooks extends BasicEntity {
+public class AuthorBook extends BasicEntity {
 
 
     @ManyToOne
@@ -17,6 +17,6 @@ public class AuthorsBooks extends BasicEntity {
     private Author author;
     @ManyToOne
     @JoinColumn(name = "book_id")
-    private Book book
+    private Book book;
 
 }
