@@ -1,10 +1,5 @@
 package dao;
 
-import database.DatabaseConnection;
-import entity.Author;
-import entity.AuthorBook;
-import entity.Book;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -12,22 +7,24 @@ import javax.persistence.TypedQuery;
 import java.util.ArrayList;
 import java.util.List;
 
+import database.DatabaseConnection;
+import entity.Author;
+import entity.AuthorBook;
+import entity.Book;
+
 public class BookDao {
-
-    public List<Book> findBooks(){
-
+    public List<Book> findBooks() {
         EntityManager entityManager = DatabaseConnection.getInstance().getConnection();
-        TypedQuery<Book> query = entityManager.createQuery("select b from Book b", Book.class);
+       TypedQuery<Book> query = entityManager.createQuery("select b from Book b", Book.class);
         List<Book> books = query.getResultList();
         entityManager.close();
         return books;
-
     }
 
-
-    public Book findByTitle(String bookTitle){
+    public Book findByTitle(String bookTitle) {
         EntityManager entityManager = DatabaseConnection.getInstance().getConnection();
-        TypedQuery<Book> query = entityManager.createQuery("select b from Book b where b.title=:title", Book.class);
+        TypedQuery<Book> query = entityManager.createQuery(
+                "select b from Book b where b.title=:title", Book.class);
         query.setParameter("title", bookTitle);
         Book b = query.getSingleResult();
         entityManager.close();
@@ -37,8 +34,8 @@ public class BookDao {
     public List<Book> findBookWithPagesNumberRange(short min, short max){
         EntityManager entityManager = DatabaseConnection.getInstance().getConnection();
         TypedQuery<Object[]> query = entityManager.createQuery("select b.title, a.firstName, a.lastName from Book b " +
-                "left join b.authorBookList ab left join ab.author a " +
-                "where b.pagesNumber>=:minPagesNumber and b.pagesNumber<=:maxPagesNumber",Object[].class);
+                                  "left join b.authorBookList ab left join ab.author a " +
+                                  "where b.pagesNumber>=:minPagesNumber and b.pagesNumber<=:maxPagesNumber",Object[].class);
         query.setParameter("minPagesNumber", min);
         query.setParameter("maxPagesNumber", max);
 
@@ -67,5 +64,4 @@ public class BookDao {
         });
         return books;
     }
-
 }

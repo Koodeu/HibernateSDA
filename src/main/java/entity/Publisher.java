@@ -1,8 +1,8 @@
 package entity;
 
-import lombok.*;
-
 import javax.persistence.*;
+
+import lombok.*;
 
 @Getter
 @Setter
@@ -15,18 +15,13 @@ public class Publisher extends BasicEntity {
 
     @Column(name = "name")
     private String name;
-    @Column(name = "description")
-    private String description;
     @Column(name = "email")
     private String email;
     @Column(name = "dialing_code")
-    private int dialingCode;
+    private String dialingCode;
     @Column(name = "phone_number")
-    private int phoneNumber;
-
+    private String phoneNumber;
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
-
-
 }

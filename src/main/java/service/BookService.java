@@ -1,68 +1,72 @@
 package service;
 
-import dao.BookDao;
-import dto.AuthorDTO;
-import dto.BookDTO;
-import entity.Book;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.BookDao;
+import dto.AuthorDto;
+import dto.BookDto;
+import entity.Book;
+
 public class BookService {
 
-    BookDao bookDao = new BookDao();
+    private BookDao bookDao = new BookDao();
 
-    public List<BookDTO> findBooks() {
+    public List<BookDto> findBooks() {
         List<Book> books = bookDao.findBooks();
-        List<BookDTO> dtos = new ArrayList<>();
+
+        List<BookDto> dtos = new ArrayList<>();
         books.forEach(book -> {
-            BookDTO bookDTO = new BookDTO();
-            bookDTO.setTitle(bookDTO.getTitle());
-            bookDTO.setPublisherName(book.getPublisher().getName());
-            bookDTO.setCategoryName(book.getCategory().getName());
-            bookDTO.setPagesNumber(book.getPagesNumber());
-            dtos.add(bookDTO);
+            BookDto bookDto = new BookDto();
+            bookDto.setTitle(book.getTitle());
+            bookDto.setPublisherName(book.getPublisher().getName());
+            bookDto.setCategoryName(book.getCategory().getName());
+            bookDto.setPagesNumber(book.getPagesNumber());
+            dtos.add(bookDto);
         });
         return dtos;
     }
 
-    public BookDTO findByTitle(String bookTitle) {
+    public BookDto findByTitle(String bookTitle) {
         if (bookTitle != null && bookTitle.equals("") == false) {
             Book book = bookDao.findByTitle(bookTitle);
-            BookDTO bookDTO = new BookDTO();
-            bookDTO.setTitle(bookDTO.getTitle());
-            bookDTO.setPublisherName(book.getPublisher().getName());
-            bookDTO.setCategoryName(book.getCategory().getName());
-            bookDTO.setPagesNumber(book.getPagesNumber());
-            return bookDTO;
+            BookDto bookDto = new BookDto();
+            bookDto.setTitle(book.getTitle());
+            bookDto.setPublisherName(book.getPublisher().getName());
+            bookDto.setCategoryName(book.getCategory().getName());
+            bookDto.setPagesNumber(book.getPagesNumber());
+            return bookDto;
         } else {
-
-            throw new IllegalArgumentException("bookTitle cannot be null or empty");
+            throw new IllegalArgumentException("bookTitle can not be null or empty");
         }
     }
 
-    public List<BookDTO> findBooksWithPagesNumberRange(short min, short max){
-
-        if(min > 0 && max > 0 && max > min){
-            List<Book> books = bookDao.findBookWithPagesNumberRange(min,max);
-            List<BookDTO> bookDTOS = new ArrayList<>();
+    public List<BookDto> findBookWithPagesNumberRange(short min, short max) {
+        if (min > 0 && max > 0 && max > min) {
+            List<Book> books = bookDao.findBookWithPagesNumberRange(min, max);
+            List<BookDto> bookDtos = new ArrayList<>();
             books.forEach(book -> {
-                BookDTO bookDTO = new BookDTO();
-                bookDTO.setTitle(book.getTitle());
-                AuthorDTO authorDTO = new AuthorDTO();
-                authorDTO.setFirstName(book.getAuthorBookList().get(0).getAuthor().getFirstName());
-                authorDTO.setFirstName(book.getAuthorBookList().get(0).getAuthor().getLastName());
-                bookDTO.setAuthorDto(authorDTO);
-                bookDTOS.add(bookDTO);
+                BookDto bookDto = new BookDto();
+                bookDto.setTitle(book.getTitle());
+                AuthorDto authorDto = new AuthorDto();
+                authorDto.setFirstName(book.getAuthorBookList().get(0).getAuthor().getFirstName());
+                authorDto.setLastName(book.getAuthorBookList().get(0).getAuthor().getLastName());
+                bookDto.setAuthorDto(authorDto);
+                bookDtos.add(bookDto);
             });
-            return bookDTOS;
-        }else{
-            throw new IllegalArgumentException("min and max cannot be 0 and max must be greater than min");
+            return bookDtos;
+        } else {
+            throw new IllegalArgumentException(
+                    "min and max value can not be 0 and max must be greater than min");
         }
-
     }
-
 }
+
+
+
+
+
+
 
 
 

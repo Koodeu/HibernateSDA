@@ -1,36 +1,34 @@
 package entity;
 
+import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
-
-import javax.persistence.*;
-import java.time.LocalDate;
+import lombok.Setter;
 
 @Getter
-@ToString
-@AllArgsConstructor
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "customers")
 public class Customer extends BasicEntity {
-
     @Column(name = "first_name")
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "login")
+    @Column
     private String login;
-    @Column(name ="password")
+    @Column
     private String password;
     @Column(name = "birth_date")
     private LocalDate birthDate;
-
-    @Column(name = "sex")
+    @Column
     @Enumerated(EnumType.STRING)
     private Sex sex;
-
     @Column(name = "dialing_code")
     private String dialingCode;
     @Column(name = "phone_number")
@@ -38,15 +36,12 @@ public class Customer extends BasicEntity {
     @Column(name = "email")
     private String email;
     @Column(name = "create_date")
-    private LocalDate createDate;
+    private LocalDateTime createDate;
 
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
-
     @ManyToOne
     @JoinColumn(name = "customer_type_id")
     private CustomerType customerType;
-
 }
-
